@@ -3,23 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
+    <!-- Intégration de Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Inscription</h1>
-    
-    <form id="registerForm">
-        <input type="text" id="username" placeholder="Nom d'utilisateur" required>
-        <input type="password" id="password" placeholder="Mot de passe" required>
+    <div class="container">
+        <h1 class="text-center">Inscription</h1>
         
-        <video id="video" width="320" height="240" autoplay></video>
-        <button type="button" id="captureBtn">Capturer</button>
-        <canvas id="canvas" style="display: none;"></canvas>
-        <img id="capturedImage" style="display: none; width: 320px; height: 240px;" />
+        <form id="registerForm">
+            <div class="form-group">
+                <input type="text" id="username" class="form-control" placeholder="Nom d'utilisateur" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="form-control" placeholder="Mot de passe" required>
+            </div>
+            
+            <div class="form-group">
+                <video id="video" class="img-fluid" width="320" height="240" autoplay></video>
+                <button type="button" id="captureBtn" class="btn btn-info mt-2">Capturer</button>
+            </div>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <img id="capturedImage" class="img-fluid mt-2" style="display: none; width: 320px; height: 240px;" />
+            
+            <button type="submit" class="btn btn-primary mt-4">S'inscrire</button>
+        </form>
 
-        <button type="submit">S'inscrire</button>
-    </form>
+        <p id="message" class="mt-4"></p>
+    </div>
 
-    <p id="message"></p>
+    <!-- Intégration de Bootstrap JS et dépendances -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         const video = document.getElementById('video');

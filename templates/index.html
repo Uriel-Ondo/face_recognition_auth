@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
+    <!-- Intégration de Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Bienvenue sur le système de reconnaissance faciale</h1>
-    <a href="{{ url_for('register') }}">S'inscrire</a> | 
-    <a href="{{ url_for('login') }}">Se connecter</a>
+    <div class="container">
+        <h1 class="text-center">Bienvenue sur le système de reconnaissance faciale</h1>
+        <div class="text-center">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">S'inscrire</a>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">Se connecter</a>
+        </div>
+    </div>
+    <!-- Intégration de Bootstrap JS et dépendances -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
