@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+</head>
+<body>
+    <h1>Inscription</h1>
+    
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Nom d'utilisateur" required>
+        <input type="password" id="password" placeholder="Mot de passe" required>
+        
+        <video id="video" width="320" height="240" autoplay></video>
+        <button type="button" id="captureBtn">Capturer</button>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <img id="capturedImage" style="display: none; width: 320px; height: 240px;" />
+
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+        const capturedImage = document.getElementById('capturedImage');
+        let imageData = "";
+
+        // Accéder à la webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => console.error("Erreur d'accès à la webcam :", err));
+
+        // Capture de l'image
+        captureBtn.addEventListener('click', function() {
+            const ctx = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            imageData = canvas.toDataURL('image/jpeg');
+            capturedImage.src = imageData;
+            capturedImage.style.display = "block";
+        });
+
+        // Envoi des données en AJAX
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!imageData) {
+                document.getElementById('message').innerText = "Veuillez capturer une image avant de continuer.";
+                return;
+            }
+
+            fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, image: imageData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').innerText = data.message;
+                if (data.success) {
+                    setTimeout(() => {
+                        window.location.href = "/login";
+                    }, 1000);
+                }
+            })
+            .catch(error => console.error('Erreur:', error));
+        });
+    </script>
+</body>
+</html>
